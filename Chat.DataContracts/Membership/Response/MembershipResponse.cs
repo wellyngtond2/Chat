@@ -1,4 +1,4 @@
-﻿namespace Chat.DataContracts.Membership
+﻿namespace Chat.DataContracts.Membership.Response
 {
     public class MembershipResponse
     {

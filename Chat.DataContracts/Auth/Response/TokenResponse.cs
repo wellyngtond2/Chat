@@ -1,4 +1,4 @@
-﻿namespace Chat.DataContracts.Auth
+﻿namespace Chat.DataContracts.Auth.Response
 {
     public class TokenResponse
     {

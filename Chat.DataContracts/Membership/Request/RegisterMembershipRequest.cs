@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Chat.DataContracts.Membership
+namespace Chat.DataContracts.Membership.Request
 {
     public sealed class RegisterMembershipRequest : IRequest
     {
