@@ -13,10 +13,10 @@ namespace Chat.Application.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly DataBaseContext _dbContext;
+        private readonly ApiContext _dbContext;
         private readonly AuthSettings _settings;
 
-        public TokenService(DataBaseContext dbContext,IOptions<AuthSettings> options)
+        public TokenService(ApiContext dbContext,IOptions<AuthSettings> options)
         {
             _dbContext = dbContext;
             _settings = options.Value;

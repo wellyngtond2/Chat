@@ -25,10 +25,10 @@ namespace Chat.Presentation.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAll()
         {
-            var request = new GetChatRoomRequest(id);
+            var request = new GetChatRoomRequest();
             var response = await _mediator.Send(request);
 
             return Ok(response);

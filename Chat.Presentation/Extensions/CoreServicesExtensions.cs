@@ -20,8 +20,6 @@ namespace Chat.Presentation.Extensions
 
             services.AddSingleton(Log.Logger);
 
-            services.AddDbContext<DataBaseContext>(op => op.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
             services.AddMediatR(typeof(Chat.Application.AssemblyReference).Assembly);
             services.AddAutoMapper(typeof(Chat.Application.AssemblyReference).Assembly);
             services.AddValidatorsFromAssembly(typeof(Chat.Application.AssemblyReference).Assembly);

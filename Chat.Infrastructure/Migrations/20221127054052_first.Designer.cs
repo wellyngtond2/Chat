@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chat.Infrastructure.Migrations
 {
-    [DbContext(typeof(DataBaseContext))]
+    [DbContext(typeof(ApiContext))]
     [Migration("20221127054052_first")]
     partial class first
     {

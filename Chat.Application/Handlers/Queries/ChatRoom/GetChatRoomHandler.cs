@@ -2,7 +2,9 @@
 using Chat.Application.Handlers.Base;
 using Chat.DataContracts.ChatRoom.Request;
 using Chat.DataContracts.ChatRoom.Response;
+using Chat.Infrastructure.Context;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -14,13 +16,19 @@ namespace Chat.Application.Handlers.Queries.ChatRoom
 {
     public class GetChatRoomHandler : BaseCommandHandler<GetChatRoomRequest, ChatRoomResponse>
     {
-        public GetChatRoomHandler(IEnumerable<IValidator<GetChatRoomRequest>> validators, ILogger logger, IMapper mapper) : base(validators, logger, mapper)
+        private readonly ApiContext _dbContext;
+        public GetChatRoomHandler(IEnumerable<IValidator<GetChatRoomRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext) : base(validators, logger, mapper)
         {
+            _dbContext = dbContext;
         }
 
-        protected override Task<ChatRoomResponse> Process(GetChatRoomRequest request, CancellationToken cancellationToken)
+        protected async override Task<ChatRoomResponse> Process(GetChatRoomRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var chatRooms = await _dbContext.ChatRooms.ToListAsync(cancellationToken);
+
+            var response = _mapper.Map<ChatRoomResponse>(chatRooms);
+
+            return response;
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Chat.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DataBaseContext _dbContext;
+        private readonly ApiContext _dbContext;
 
-        public UnitOfWork(DataBaseContext dbContext)
+        public UnitOfWork(ApiContext dbContext)
         {
             _dbContext = dbContext;
         }

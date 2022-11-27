@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Infrastructure.Context
 {
-    public class DataBaseContext : DbContext
+    public class ApiContext : DbContext
     {
-        public DataBaseContext(DbContextOptions options) : base(options)
+        public ApiContext(DbContextOptions options) : base(options)
         {
         }
 

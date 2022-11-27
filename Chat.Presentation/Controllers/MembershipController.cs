@@ -18,6 +18,7 @@ namespace Chat.Presentation.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterMembershipRequest request)
         {
             await _mediator.Send(request);

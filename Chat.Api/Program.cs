@@ -1,45 +1,52 @@
 using Chat.Api.Middlewares;
+using Chat.Infrastructure.Context;
+using Chat.Infrastructure.Hubs;
 using Chat.Presentation.Extensions;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 var presentationAssembly = typeof(Chat.Presentation.AssemblyReference).Assembly;
 
-builder.Services.AddControllers()
-    .AddApplicationPart(presentationAssembly);
+builder.Services.AddSignalR();
+
+builder.Services.AddControllers().AddApplicationPart(presentationAssembly);
 
 builder.Services.RegisterAuthenticate(builder.Configuration);
 
 builder.Services.RegisterSettings(builder.Configuration);
 builder.Services.RegisterCore(builder.Configuration);
+
+builder.Services.AddDbContext<ApiContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.RegisterDomainServices();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x => {
-    x.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Scheme = "Bearer",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http
-    });
-    x.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement());
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().SetIsOriginAllowed((hosts) => true));
 });
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.RegisterSwagger();
 
 builder.Services.AddTransient<GlobalExceptionMiddleware>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseCors("CORSPolicy");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSignalR();
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
