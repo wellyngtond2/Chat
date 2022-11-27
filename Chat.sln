@@ -13,15 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Core", "2 - Core", "{A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{96CBF9DE-1410-47F3-B6F6-B6361510B497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Domain", "Chat.Domain\Chat.Domain.csproj", "{2648D9BB-A04C-4590-B515-910CA4B2B281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Domain", "Chat.Domain\Chat.Domain.csproj", "{2648D9BB-A04C-4590-B515-910CA4B2B281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Application", "Chat.Application\Chat.Application.csproj", "{3D0A42F2-5048-4A7A-8F1A-81A71633C7F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Application", "Chat.Application\Chat.Application.csproj", "{3D0A42F2-5048-4A7A-8F1A-81A71633C7F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Infrastructure", "Chat.Infrastructure\Chat.Infrastructure.csproj", "{798BA134-68FA-4E8F-A3CC-6CDD211BCC43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Infrastructure", "Chat.Infrastructure\Chat.Infrastructure.csproj", "{798BA134-68FA-4E8F-A3CC-6CDD211BCC43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.DataContracts", "Chat.DataContracts\Chat.DataContracts.csproj", "{C04B2282-EED2-42CE-B437-7182E29C435F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.DataContracts", "Chat.DataContracts\Chat.DataContracts.csproj", "{C04B2282-EED2-42CE-B437-7182E29C435F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Controllers", "Chat.Controllers\Chat.Controllers.csproj", "{BDFF9279-D58B-4439-85E3-79DEC9AA7F45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Presentation", "Chat.Presentation\Chat.Presentation.csproj", "{87B18D99-E0EC-4BD9-A481-55D109042100}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{C04B2282-EED2-42CE-B437-7182E29C435F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C04B2282-EED2-42CE-B437-7182E29C435F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C04B2282-EED2-42CE-B437-7182E29C435F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDFF9279-D58B-4439-85E3-79DEC9AA7F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDFF9279-D58B-4439-85E3-79DEC9AA7F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDFF9279-D58B-4439-85E3-79DEC9AA7F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDFF9279-D58B-4439-85E3-79DEC9AA7F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87B18D99-E0EC-4BD9-A481-55D109042100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B18D99-E0EC-4BD9-A481-55D109042100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87B18D99-E0EC-4BD9-A481-55D109042100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87B18D99-E0EC-4BD9-A481-55D109042100}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,7 +63,7 @@ Global
 		{3D0A42F2-5048-4A7A-8F1A-81A71633C7F1} = {4719A57B-3DB9-407F-8F1D-674D635479DB}
 		{798BA134-68FA-4E8F-A3CC-6CDD211BCC43} = {96CBF9DE-1410-47F3-B6F6-B6361510B497}
 		{C04B2282-EED2-42CE-B437-7182E29C435F} = {DE73C6D2-18AD-4225-8753-4FFEDC37F640}
-		{BDFF9279-D58B-4439-85E3-79DEC9AA7F45} = {DE73C6D2-18AD-4225-8753-4FFEDC37F640}
+		{87B18D99-E0EC-4BD9-A481-55D109042100} = {DE73C6D2-18AD-4225-8753-4FFEDC37F640}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E0E4599-043A-4DA3-A8FE-319C3F07BBBD}
