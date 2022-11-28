@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chat.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApiContext))]
-    [Migration("20221127054052_first")]
+    [DbContext(typeof(Context.ApiContext))]
+    [Migration("20221127225759_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -39,9 +39,6 @@ namespace Chat.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
@@ -53,7 +50,8 @@ namespace Chat.Infrastructure.Migrations
 
                     b.HasIndex("ChatRoomId");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("CreatorId")
+                        .IsUnique();
 
                     b.ToTable("ChatMessages");
                 });
@@ -68,9 +66,6 @@ namespace Chat.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
 
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
@@ -94,15 +89,6 @@ namespace Chat.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -117,40 +103,29 @@ namespace Chat.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
-
                     b.ToTable("Memberships");
                 });
 
             modelBuilder.Entity("Chat.Domain.Entities.ChatMessage", b =>
                 {
-                    b.HasOne("Chat.Domain.Entities.ChatRoom", null)
+                    b.HasOne("Chat.Domain.Entities.ChatRoom", "ChatRoom")
                         .WithMany("ChatMessages")
                         .HasForeignKey("ChatRoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Chat.Domain.Entities.Membership", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("Chat.Domain.Entities.ChatMessage", "CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ChatRoom");
 
                     b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Chat.Domain.Entities.ChatRoom", b =>
-                {
-                    b.HasOne("Chat.Domain.Entities.Membership", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-                });
-
-            modelBuilder.Entity("Chat.Domain.Entities.Membership", b =>
                 {
                     b.HasOne("Chat.Domain.Entities.Membership", "Creator")
                         .WithMany()

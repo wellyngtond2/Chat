@@ -11,8 +11,8 @@ namespace Chat.Application.Handlers.Queries.ChatMessage
 {
     public class GetChatMessagesHandler : BaseCommandHandler<GetChatMessagesRequest, ICollection<ChatMessageResponse>>
     {
-        private readonly ApiContext _dbContext;
-        public GetChatMessagesHandler(IEnumerable<IValidator<GetChatMessagesRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext) : base(validators, logger, mapper)
+        private readonly Infrastructure.Context.ApiContext _dbContext;
+        public GetChatMessagesHandler(IEnumerable<IValidator<GetChatMessagesRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.ApiContext dbContext) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
         }
@@ -20,7 +20,7 @@ namespace Chat.Application.Handlers.Queries.ChatMessage
         protected override async Task<ICollection<ChatMessageResponse>> Process(GetChatMessagesRequest request, CancellationToken cancellationToken)
         {
             var chatMessages = (from cm in _dbContext.ChatMessages
-                                join m in _dbContext.Memberships on cm.CreatedBy equals m.Id
+                                join m in _dbContext.Memberships on cm.Creator.Id equals m.Id
                                 where cm.Id == request.ChatId
                                 select new ChatMessageResponse
                                 {

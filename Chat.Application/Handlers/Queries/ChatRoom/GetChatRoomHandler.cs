@@ -14,19 +14,19 @@ using System.Threading.Tasks;
 
 namespace Chat.Application.Handlers.Queries.ChatRoom
 {
-    public class GetChatRoomHandler : BaseCommandHandler<GetChatRoomRequest, ChatRoomResponse>
+    public class GetChatRoomHandler : BaseCommandHandler<GetChatRoomRequest, ICollection<ChatRoomResponse>>
     {
-        private readonly ApiContext _dbContext;
-        public GetChatRoomHandler(IEnumerable<IValidator<GetChatRoomRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext) : base(validators, logger, mapper)
+        private readonly Infrastructure.Context.ApiContext _dbContext;
+        public GetChatRoomHandler(IEnumerable<IValidator<GetChatRoomRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.ApiContext dbContext) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
         }
 
-        protected async override Task<ChatRoomResponse> Process(GetChatRoomRequest request, CancellationToken cancellationToken)
+        protected async override Task<ICollection<ChatRoomResponse>> Process(GetChatRoomRequest request, CancellationToken cancellationToken)
         {
             var chatRooms = await _dbContext.ChatRooms.ToListAsync(cancellationToken);
 
-            var response = _mapper.Map<ChatRoomResponse>(chatRooms);
+            var response = _mapper.Map<ICollection<ChatRoomResponse>>(chatRooms);
 
             return response;
         }

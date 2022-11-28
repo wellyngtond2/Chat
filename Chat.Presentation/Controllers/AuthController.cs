@@ -20,9 +20,11 @@ namespace Chat.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Authenticate(AuthenticateRequest request)
         {
-            await _mediator.Send(request);
+            var response = await _mediator.Send(request);
 
-            return Ok();
+            if (response is null) return BadRequest("Invalid user or password");
+
+            return Ok(response);
         }
     }
 }

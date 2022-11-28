@@ -16,10 +16,13 @@ namespace Chat.Infrastructure.Hubs
             _mediator = mediator;
             _mapper = mapper;
         }
-        public async Task SendMessageToChat(int chatId, string message)
+        public async Task SendMessageToChat(int chatId, int userId, string message)
         {
+            var x = Clients.All.SendAsync("SendMessageToChat", new { chatId, userId, message });
+
             var request = new SendChatMessageRequest(chatId, message);
             await _mediator.Send(request);
+
         }
         public async Task GetMessagesByChatIDAsync(int chatId)
         {

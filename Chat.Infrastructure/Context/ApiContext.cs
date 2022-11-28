@@ -11,12 +11,15 @@ namespace Chat.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ChatRoom>(builder =>
+            modelBuilder.Entity<ChatMessage>(builder =>
             {
-                builder.HasMany(room => room.ChatMessages)
+                builder.HasOne(msg => msg.Creator)
                .WithOne()
-               .HasForeignKey(message => message.ChatRoomId)
-               .IsRequired();
+               .OnDelete(DeleteBehavior.Restrict);
+
+                builder.HasOne(msg => msg.ChatRoom)
+                .WithMany(x=>x.ChatMessages)
+                .OnDelete(DeleteBehavior.Restrict);
             });
         }
         public override int SaveChanges()

@@ -13,10 +13,10 @@ namespace Chat.Application.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly ApiContext _dbContext;
+        private readonly Infrastructure.Context.ApiContext _dbContext;
         private readonly AuthSettings _settings;
 
-        public TokenService(ApiContext dbContext,IOptions<AuthSettings> options)
+        public TokenService(Infrastructure.Context.ApiContext dbContext, IOptions<AuthSettings> options)
         {
             _dbContext = dbContext;
             _settings = options.Value;
@@ -34,8 +34,9 @@ namespace Chat.Application.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Subject = new ClaimsIdentity(new[]
                 {
+                    new Claim("Id", membership.Id.ToString()),
                     new Claim(ClaimTypes.Email, membership.Email),
-                    new Claim(ClaimTypes.Role, "Chat"),
+                    new Claim(ClaimTypes.Name, membership.Name),
                 })
 
             });

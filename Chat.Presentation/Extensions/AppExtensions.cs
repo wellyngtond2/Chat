@@ -7,9 +7,10 @@ namespace Chat.Presentation.Extensions
     {
         public static WebApplication UseSignalR(this WebApplication app)
         {
-            //app.UseEndpoints(endpoints => {
-            //    endpoints.MapHub<SignalRHub>("/chatRoom");
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<SignalRHub>("/chatRoom");
+            });
 
             return app;
         }

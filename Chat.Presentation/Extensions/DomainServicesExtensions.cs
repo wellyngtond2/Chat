@@ -11,7 +11,7 @@ namespace Chat.Presentation.Extensions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITokenService, TokenService>();
-
+            services.AddScoped<IUserContext, UserContext>();
             return services;
         }
     }
