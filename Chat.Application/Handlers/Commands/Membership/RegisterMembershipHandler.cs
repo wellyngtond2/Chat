@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Chat.Application.Handlers.Base;
+using Chat.Application.Handlers.Events.EventsRequest;
 using Chat.DataContracts.Membership.Request;
+using Chat.Domain.Dtos;
 using Chat.Infrastructure.Context;
 using FluentValidation;
 using MediatR;

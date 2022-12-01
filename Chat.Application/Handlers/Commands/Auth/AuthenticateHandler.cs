@@ -13,9 +13,9 @@ namespace Chat.Application.Handlers.Commands.Auth
 {
     public class AuthenticateHandler : BaseCommandHandler<AuthenticateRequest, BaseResponse<TokenResponse>>
     {
-        private readonly Infrastructure.Context.ApiContext _dbContext;
+        private readonly ApiContext _dbContext;
         private readonly ITokenService _tokenService;
-        public AuthenticateHandler(IEnumerable<IValidator<AuthenticateRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.ApiContext dbContext, ITokenService tokenService) : base(validators, logger, mapper)
+        public AuthenticateHandler(IEnumerable<IValidator<AuthenticateRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext, ITokenService tokenService) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
             _tokenService = tokenService;

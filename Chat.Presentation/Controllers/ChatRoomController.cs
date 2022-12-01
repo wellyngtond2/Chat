@@ -1,4 +1,5 @@
-﻿using Chat.DataContracts.ChatRoom.Request;
+﻿using Chat.DataContracts.ChatMessage.Request;
+using Chat.DataContracts.ChatRoom.Request;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,16 @@ namespace Chat.Presentation.Controllers
             var response = await _mediator.Send(request);
 
             return Ok(response);
+        }
+
+        [HttpPost("send-message")]
+        public async Task<IActionResult> SendMessage(SendChatMessageRequest request)
+        {
+            if (request is null) return BadRequest();
+
+            await _mediator.Send(request);
+
+            return Ok();
         }
     }
 }

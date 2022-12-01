@@ -25,7 +25,7 @@ namespace Chat.Application.Mapper
         }
         private void ChatMap()
         {
-            CreateMap<ChatMessageResponse, HubMessageDto>();
+            //CreateMap<ChatMessageResponse, GetHubMessageDto>();
         }
         private void ChatRoomMap()
         {

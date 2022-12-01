@@ -1,4 +1,5 @@
 ﻿using Chat.Domain.Entities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Infrastructure.Context
@@ -36,6 +37,8 @@ namespace Chat.Infrastructure.Context
 
             return base.SaveChanges();
         }
+
+        public ICollection<INotification> Notifications { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<ChatRoom> ChatRooms { get; set; }
         public DbSet<Membership> Memberships { get; set; }

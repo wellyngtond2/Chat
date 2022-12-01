@@ -5,7 +5,6 @@ using Chat.DataContracts.ChatRoom.Request;
 using Chat.Infrastructure.Context;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Serilog;
 
 namespace Chat.Application.Handlers.Commands.ChatRoom
@@ -23,7 +22,8 @@ namespace Chat.Application.Handlers.Commands.ChatRoom
         protected async override Task<Unit> Process(CreateChatRoomRequest request, CancellationToken cancellationToken)
         {
             var chatRoom = _mapper.Map<Domain.Entities.ChatRoom>(request);
-            chatRoom.SetCreator(_userContext.GetUserContext().userId);
+            var creator = new Domain.Entities.Membership(_userContext.GetUserContext().userId);
+            chatRoom.SetCreator(creator);
             _dbContext.Add(chatRoom);
 
             await _dbContext.SaveChangesAsync(cancellationToken);

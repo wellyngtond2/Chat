@@ -2,7 +2,7 @@
 {
     public class Membership
     {
-        public Membership()
+        protected Membership()
         {
 
         }
@@ -12,6 +12,10 @@
             Name = name;
             Email = email;
             Password = password;
+        }
+        public Membership(int id)
+        {
+            Id = id;
         }
 
         public int Id { get; private set; }

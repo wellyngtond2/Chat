@@ -1,4 +1,6 @@
-﻿namespace Chat.Domain.Entities
+﻿using Chat.Domain.Exceptions;
+
+namespace Chat.Domain.Entities
 {
     public class ChatMessage : BaseEntity
     {
@@ -18,5 +20,13 @@
         public virtual Membership Creator { get; set; }
         public int ChatRoomId { get; private set; }
         public virtual ChatRoom ChatRoom { get; set; }
+
+        public void SetCreator(Membership user)
+        {
+            if (user is null)
+                throw new MemberhipNullException("Invalid membership in ChatMessage");
+
+            CreatorId = user.Id;
+        }
     }
 }

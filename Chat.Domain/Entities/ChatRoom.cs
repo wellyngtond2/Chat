@@ -1,4 +1,6 @@
-﻿namespace Chat.Domain.Entities
+﻿using Chat.Domain.Exceptions;
+
+namespace Chat.Domain.Entities
 {
     public class ChatRoom : BaseEntity
     {
@@ -12,9 +14,12 @@
             Name = name;
         }
 
-        public void SetCreator(int creatorId)
+        public void SetCreator(Membership user)
         {
-            CreatorId = creatorId;
+            if (user is null)
+                throw new MemberhipNullException("Invalid membership in ChatRoom");
+
+            CreatorId = user.Id;
         }
 
         public int Id { get; private set; }
