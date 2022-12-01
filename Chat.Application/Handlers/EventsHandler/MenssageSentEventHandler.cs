@@ -1,12 +1,12 @@
-﻿using Chat.Application.Handlers.Events.EventsRequest;
+﻿using Chat.Domain.DomainEvents;
 using Chat.Domain.Dtos;
 using Chat.Infrastructure.Hubs;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Chat.Application.Handlers.Events.EventsHandler
+namespace Chat.Application.Handlers.EventsHandler
 {
-    public class MenssageSentEventHandler : INotificationHandler<MenssageSentEvent>
+    public sealed class MenssageSentEventHandler : INotificationHandler<MenssageSentEvent>
     {
         private readonly IHubContext<SignalRHub> _hubContext;
 

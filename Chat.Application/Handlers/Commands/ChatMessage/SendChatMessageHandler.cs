@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Chat.Application.Handlers.Base;
-using Chat.Application.Handlers.Events.EventsRequest;
 using Chat.Application.Services;
 using Chat.DataContracts.ChatMessage.Request;
+using Chat.Domain.DomainEvents;
 using Chat.Infrastructure.Context;
 using FluentValidation;
 using MediatR;
@@ -14,10 +14,12 @@ namespace Chat.Application.Handlers.Commands.ChatMessage
     {
         private readonly ApiContext _dbContext;
         private readonly IUserContext _userContext;
-        public SendChatMessageHandler(IEnumerable<IValidator<SendChatMessageRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext, IUserContext userContext) : base(validators, logger, mapper)
+        private readonly IMediator _mediator;
+        public SendChatMessageHandler(IEnumerable<IValidator<SendChatMessageRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext, IUserContext userContext, IMediator mediator) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
             _userContext = userContext;
+            _mediator = mediator;
         }
 
         protected async override Task<Unit> Process(SendChatMessageRequest request, CancellationToken cancellationToken)
@@ -28,9 +30,9 @@ namespace Chat.Application.Handlers.Commands.ChatMessage
 
                 var stockName = request.Message.Substring(index);
 
-                var menssageSentEvent = new GetStockEvent(request.ChatId, stockName);
+                var getStockEvent = new GetStockEvent(request.ChatId, stockName);
 
-                _dbContext.Notifications.Add(menssageSentEvent);
+                await _mediator.Publish(getStockEvent);
 
                 return default;
             }
@@ -42,15 +44,11 @@ namespace Chat.Application.Handlers.Commands.ChatMessage
             message.SetCreator(creator);
             _dbContext.Add(message);
 
-            var result = await _dbContext.SaveChangesAsync(cancellationToken);
+            var menssageSentEvent = new MenssageSentEvent(userData.userId, userData.userName, request.ChatId, request.Message);
 
-            if (result > 0)
-            {
-                var menssageSentEvent = new MenssageSentEvent(userData.userId, userData.userName, request.ChatId, request.Message);
+            message.RaiseDoaminEvents(menssageSentEvent);
 
-                _dbContext.Notifications.Add(menssageSentEvent);
-            }
-
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return default;
         }

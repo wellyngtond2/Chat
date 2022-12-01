@@ -1,4 +1,5 @@
 ﻿using Chat.Domain.Exceptions;
+using Chat.Share.Entities;
 
 namespace Chat.Domain.Entities
 {

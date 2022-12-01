@@ -23,22 +23,6 @@ namespace Chat.Infrastructure.Context
                 .OnDelete(DeleteBehavior.Restrict);
             });
         }
-        public override int SaveChanges()
-        {
-            var entries = ChangeTracker
-                          .Entries()
-                          .Where(e => e.Entity is BaseEntity && (
-                          e.State == EntityState.Added));
-
-            foreach (var entityEntry in entries)
-            {
-                ((BaseEntity)entityEntry.Entity).CreatedAt = DateTime.Now;
-            }
-
-            return base.SaveChanges();
-        }
-
-        public ICollection<INotification> Notifications { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<ChatRoom> ChatRooms { get; set; }
         public DbSet<Membership> Memberships { get; set; }

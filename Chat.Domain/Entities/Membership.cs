@@ -1,6 +1,8 @@
-﻿namespace Chat.Domain.Entities
+﻿using Chat.Share.Entities;
+
+namespace Chat.Domain.Entities
 {
-    public class Membership
+    public class Membership : BaseEntity
     {
         protected Membership()
         {

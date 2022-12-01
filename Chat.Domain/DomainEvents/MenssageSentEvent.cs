@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Chat.Share.Events.Interfaces;
 
-namespace Chat.Application.Handlers.Events.EventsRequest
+namespace Chat.Domain.DomainEvents
 {
-    public class MenssageSentEvent : INotification
+    public class MenssageSentEvent : IDomainEvents
     {
         public MenssageSentEvent(int userId, string user, int chatId, string message)
         {

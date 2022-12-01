@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Chat.Share.Events.Interfaces;
 
-namespace Chat.Application.Handlers.Events.EventsRequest
+namespace Chat.Domain.DomainEvents
 {
-    public class GetStockEvent : INotification
+    public class GetStockEvent : IDomainEvents
     {
         public GetStockEvent(int chatId, string stockName)
         {

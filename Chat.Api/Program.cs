@@ -1,9 +1,5 @@
 using Chat.Api.Middlewares;
-using Chat.Infrastructure.Context;
-using Chat.Infrastructure.Hubs;
 using Chat.Presentation.Extensions;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,11 +16,13 @@ builder.Services.RegisterSettings(builder.Configuration);
 
 builder.Services.RegisterCore(builder.Configuration);
 
-builder.Services.AddDbContext<ApiContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.RegisterDbContext(builder.Configuration);
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.RegisterDomainServices();
+
+builder.Services.RegisterExternalServices();
 
 builder.Services.AddCors(options =>
 {
