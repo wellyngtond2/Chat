@@ -36,6 +36,7 @@ namespace Chat.Presentation.Controllers
         }
 
         [HttpPost("send-message")]
+        [AllowAnonymous]
         public async Task<IActionResult> SendMessage(SendChatMessageRequest request)
         {
             if (request is null) return BadRequest();

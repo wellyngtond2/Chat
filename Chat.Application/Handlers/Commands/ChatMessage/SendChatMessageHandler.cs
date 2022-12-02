@@ -28,7 +28,7 @@ namespace Chat.Application.Handlers.Commands.ChatMessage
             {
                 var index = request.Message.IndexOf("=");
 
-                var stockName = request.Message.Substring(index);
+                var stockName = request.Message.Substring(index + 1);
 
                 var getStockEvent = new GetStockEvent(request.ChatId, stockName);
 

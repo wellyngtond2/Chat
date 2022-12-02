@@ -1,6 +1,6 @@
 ﻿using Chat.Share.Events;
 using EasyNetQ;
-using FluentValidation.Results;
+using GetStockBot.ExternalServices;
 using Quartz;
 
 namespace GetStockBot.BackgroundServices
@@ -8,24 +8,36 @@ namespace GetStockBot.BackgroundServices
     public class ReadGetStockQueueServices : IJob
     {
         private IBus _bus;
+        private readonly IStockService _stockService;
+        private readonly string ConnectionString = "host=localhost;port=5672;username=guest;password=guest";
 
-        public ReadGetStockQueueServices(IBus bus)
+        public ReadGetStockQueueServices(IStockService stockService)
         {
-            _bus = bus;
+            _stockService = stockService;
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-            _bus = RabbitHutch.CreateBus("host=localhost");
+            _bus = RabbitHutch.CreateBus(ConnectionString);
 
-            await _bus.Rpc.RespondAsync<StockRequestedEvent, ResponseMessage>( async request =>
-                new ResponseMessage(await GetStoke(request))
-            );
+
+            var message = await _bus.PubSub.SubscribeAsync<string>("StockRequested", async (mess) =>
+            {
+                await GetStoke(mess);
+            }, 
+            (x) => 
+            { 
+                x.WithTopic("chat.stock.direct");
+                x.WithQueueName("StockRequested");
+            });
+
         }
 
-        private Task<ValidationResult> GetStoke(StockRequestedEvent request)
+        private async Task GetStoke(string request)
         {
-            throw new NotImplementedException();
+            //await _stockService.GetStockByCode(request.StockName);
+
+
         }
     }
 }

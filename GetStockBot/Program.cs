@@ -1,4 +1,5 @@
 using GetStockBot.BackgroundServices;
+using GetStockBot.ExternalServices;
 using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddQuartz(config =>
 
     config.UseMicrosoftDependencyInjectionJobFactory();
 });
+
+builder.Services.AddScoped<IStockService, StockService>();
 
 builder.Services.AddQuartzHostedService();
 
