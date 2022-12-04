@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Chat.DataContracts.ChatMessage.Request;
 using Chat.DataContracts.ChatMessage.Response;
 using Chat.DataContracts.ChatRoom.Request;
 using Chat.DataContracts.ChatRoom.Response;
@@ -25,7 +26,7 @@ namespace Chat.Application.Mapper
         }
         private void ChatMap()
         {
-            //CreateMap<ChatMessageResponse, GetHubMessageDto>();
+            CreateMap<SendChatMessageRequest, Domain.Entities.ChatMessage>();
         }
         private void ChatRoomMap()
         {

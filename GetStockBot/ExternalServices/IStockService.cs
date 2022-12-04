@@ -2,6 +2,7 @@
 {
     public interface IStockService
     {
-        Task GetStockByCode(string code);
+        Task<byte[]> GetStockByCodeAsync(string code);
+        Task<string> ProcessStockByFileAsync(byte[] file);
     }
 }

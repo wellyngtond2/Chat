@@ -16,7 +16,7 @@ namespace Chat.Application.Handlers.EventsHandler
 
         public async Task Handle(GetStockEvent notification, CancellationToken cancellationToken)
         {
-            await _messageBusService.SendMessage(new StockRequestedEvent(notification.ChatId, notification.StockName), cancellationToken);
+            await _messageBusService.SendMessage(new StockRequested(notification.ChatId, notification.StockName), cancellationToken);
         }
     }
 }

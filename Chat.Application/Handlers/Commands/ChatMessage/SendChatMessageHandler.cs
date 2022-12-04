@@ -30,7 +30,7 @@ namespace Chat.Application.Handlers.Commands.ChatMessage
 
                 var stockName = request.Message.Substring(index + 1);
 
-                var getStockEvent = new GetStockEvent(request.ChatId, stockName);
+                var getStockEvent = new GetStockEvent(request.ChatRoomId, stockName);
 
                 await _mediator.Publish(getStockEvent);
 
@@ -44,7 +44,7 @@ namespace Chat.Application.Handlers.Commands.ChatMessage
             message.SetCreator(creator);
             _dbContext.Add(message);
 
-            var menssageSentEvent = new MenssageSentEvent(userData.userId, userData.userName, request.ChatId, request.Message);
+            var menssageSentEvent = new MenssageSentEvent(userData.userId, userData.userName, request.ChatRoomId, request.Message);
 
             message.RaiseDoaminEvents(menssageSentEvent);
 

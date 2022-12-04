@@ -28,6 +28,7 @@ namespace Chat.Domain.Entities
                 throw new MemberhipNullException("Invalid membership in ChatMessage");
 
             CreatorId = user.Id;
+            CreatedAt = DateTime.UtcNow;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Chat.Domain.Entities
                 throw new MemberhipNullException("Invalid membership in ChatRoom");
 
             CreatorId = user.Id;
+            CreatedAt = DateTime.UtcNow;
         }
 
         public int Id { get; private set; }

@@ -4,13 +4,13 @@ namespace Chat.DataContracts.ChatMessage.Request
 {
     public sealed class SendChatMessageRequest : IRequest
     {
-        public SendChatMessageRequest(int chatId, string message)
+        public SendChatMessageRequest(int chatRoomId, string message)
         {
-            ChatId = chatId;
+            ChatRoomId = chatRoomId;
             Message = message;
         }
 
         public string Message { get; }
-        public int ChatId { get; }
+        public int ChatRoomId { get; }
     }
 }

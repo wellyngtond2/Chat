@@ -10,16 +10,14 @@ namespace Chat.Presentation.Extensions
     {
         public static IServiceCollection RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<FillEntitiesInterceptor>();
             services.AddSingleton<SendNotificationsInterceptor>();
 
             services.AddDbContext<ApiContext>((sp, op) =>
             {
-                var fillEntitiesInterceptor = sp.GetService<FillEntitiesInterceptor>()!;
                 var sendNotificationsInterceptor = sp.GetService<SendNotificationsInterceptor>()!;
 
                 op.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
-                .AddInterceptors(fillEntitiesInterceptor, sendNotificationsInterceptor);
+                .AddInterceptors(sendNotificationsInterceptor);
             });
 
             return services;

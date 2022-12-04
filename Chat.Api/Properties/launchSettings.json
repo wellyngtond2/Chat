@@ -12,6 +12,7 @@
     "Chat.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
+      "anonymousAuthentication": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5001",

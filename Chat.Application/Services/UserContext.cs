@@ -15,6 +15,7 @@ namespace Chat.Application.Services
 
         public UserDataContext GetUserContext()
         {
+
             var id = Convert.ToInt32(_httpContextAccessor.HttpContext.User.Claims.First(c => c.Type == "Id")?.Value);
             var email = _httpContextAccessor.HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email)?.Value;
             var name = _httpContextAccessor.HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Name)?.Value;

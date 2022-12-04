@@ -1,6 +1,8 @@
 ﻿using Chat.Share.Events;
 using EasyNetQ;
+using EasyNetQ.Topology;
 using GetStockBot.ExternalServices;
+using Newtonsoft.Json;
 using Quartz;
 
 namespace GetStockBot.BackgroundServices
@@ -20,24 +22,27 @@ namespace GetStockBot.BackgroundServices
         {
             _bus = RabbitHutch.CreateBus(ConnectionString);
 
-
-            var message = await _bus.PubSub.SubscribeAsync<string>("StockRequested", async (mess) =>
+            var message = await _bus.SendReceive.ReceiveAsync<StockRequested>("StockRequested", async (mess) =>
             {
-                await GetStoke(mess);
-            }, 
-            (x) => 
-            { 
-                x.WithTopic("chat.stock.direct");
-                x.WithQueueName("StockRequested");
-            });
+                await GetStoke(mess.ChatId, mess.StockName, context.CancellationToken);
+            }, context.CancellationToken);
 
         }
 
-        private async Task GetStoke(string request)
+        private async Task GetStoke(int chatId, string request, CancellationToken cancellationToken = default)
         {
-            //await _stockService.GetStockByCode(request.StockName);
+            var file = await _stockService.GetStockByCodeAsync(request);
 
+            if (file is not null)
+            {
+                var stock = await _stockService.ProcessStockByFileAsync(file);
 
+                var content = new StockResponse(chatId, stock);
+
+                _bus = RabbitHutch.CreateBus(ConnectionString);
+
+                await _bus.SendReceive.SendAsync(nameof(StockResponse), content, cancellationToken);
+            }
         }
     }
 }

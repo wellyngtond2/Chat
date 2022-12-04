@@ -1,12 +1,10 @@
-﻿using Chat.Application;
-using Chat.Infrastructure.Context;
+﻿using Chat.Infrastructure.BackgroundJobs;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 using Serilog;
-using System.Configuration;
 
 namespace Chat.Presentation.Extensions
 {
@@ -23,6 +21,22 @@ namespace Chat.Presentation.Extensions
             services.AddMediatR(typeof(Chat.Application.AssemblyReference).Assembly);
             services.AddAutoMapper(typeof(Chat.Application.AssemblyReference).Assembly);
             services.AddValidatorsFromAssembly(typeof(Chat.Application.AssemblyReference).Assembly);
+
+            services.AddQuartz(config =>
+            {
+                var jobKey = new JobKey(nameof(ReadStockInfoQueueService));
+
+                config.AddJob<ReadStockInfoQueueService>(jobKey)
+                        .AddTrigger(trigger =>
+                        trigger.ForJob(jobKey)
+                        .WithSimpleSchedule(schedule =>
+                        schedule.WithIntervalInSeconds(15)
+                        .RepeatForever()));
+
+                config.UseMicrosoftDependencyInjectionJobFactory();
+            });
+
+            services.AddQuartzHostedService();
 
             return services;
         }

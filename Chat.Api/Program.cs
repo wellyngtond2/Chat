@@ -14,6 +14,8 @@ builder.Services.RegisterAuthenticate(builder.Configuration);
 
 builder.Services.RegisterSettings(builder.Configuration);
 
+builder.Services.RegisterExternalServices();
+
 builder.Services.RegisterCore(builder.Configuration);
 
 builder.Services.RegisterDbContext(builder.Configuration);
@@ -22,11 +24,14 @@ builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.RegisterDomainServices();
 
-builder.Services.RegisterExternalServices();
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CORSPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().SetIsOriginAllowed((hosts) => true));
+    options.AddPolicy("CORSPolicy", builder => builder
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .AllowAnyOrigin()
+    .WithOrigins("http://localhost:3000"));
 });
 
 builder.Services.AddEndpointsApiExplorer();
