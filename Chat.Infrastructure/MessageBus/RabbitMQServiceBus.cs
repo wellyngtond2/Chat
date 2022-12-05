@@ -1,14 +1,19 @@
 ﻿using Chat.Domain.Interfaces.MessageBus;
-using Chat.Share.Events;
 using Chat.Share.Events.Interfaces;
+using Chat.Share.Settings;
 using EasyNetQ;
+using Microsoft.Extensions.Options;
 
 namespace Chat.Infrastructure.MessageBus
 {
     public class RabbitMQServiceBus : IMessageBusService
     {
         private IBus _bus;
-        private readonly string ConnectionString = "host=localhost;port=5672;username=guest;password=guest";
+        private readonly QueueSettings _settings;
+        public RabbitMQServiceBus(IOptions<QueueSettings> options)
+        {
+            _settings= options.Value;
+        }
 
         public async Task SendMessage<T>(T data, CancellationToken cancellationToken) where T : IEvent
         {
@@ -33,7 +38,7 @@ namespace Chat.Infrastructure.MessageBus
         {
             if (_bus == null || !_bus.Advanced.IsConnected)
             {
-                _bus = RabbitHutch.CreateBus(ConnectionString);
+                _bus = RabbitHutch.CreateBus(_settings.ConnectionString);
             }
         }
     }

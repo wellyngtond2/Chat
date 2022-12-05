@@ -1,8 +1,6 @@
 ﻿using Chat.DataContracts.Auth.Response;
-using Chat.DataContracts.Settings;
 using Chat.Domain.Entities;
-using Chat.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
+using Chat.Share.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

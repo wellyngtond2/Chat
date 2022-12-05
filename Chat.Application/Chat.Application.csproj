@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Chat.Infrastructure\Chat.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ValidationHandlers\" />
-  </ItemGroup>
-
 </Project>

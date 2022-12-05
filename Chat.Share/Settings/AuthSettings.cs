@@ -1,4 +1,4 @@
-﻿namespace Chat.DataContracts.Settings
+﻿namespace Chat.Share.Settings
 {
     public class AuthSettings
     {

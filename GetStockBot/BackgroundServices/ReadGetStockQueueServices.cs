@@ -1,8 +1,8 @@
 ﻿using Chat.Share.Events;
+using Chat.Share.Settings;
 using EasyNetQ;
-using EasyNetQ.Topology;
 using GetStockBot.ExternalServices;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using Quartz;
 
 namespace GetStockBot.BackgroundServices
@@ -11,16 +11,17 @@ namespace GetStockBot.BackgroundServices
     {
         private IBus _bus;
         private readonly IStockService _stockService;
-        private readonly string ConnectionString = "host=localhost;port=5672;username=guest;password=guest";
+        private readonly QueueSettings _settings;
 
-        public ReadGetStockQueueServices(IStockService stockService)
+        public ReadGetStockQueueServices(IStockService stockService, IOptions<QueueSettings> options)
         {
             _stockService = stockService;
+            _settings = options.Value;
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-            _bus = RabbitHutch.CreateBus(ConnectionString);
+            TryConnect();
 
             var message = await _bus.SendReceive.ReceiveAsync<StockRequested>("StockRequested", async (mess) =>
             {
@@ -39,9 +40,16 @@ namespace GetStockBot.BackgroundServices
 
                 var content = new StockResponse(chatId, stock);
 
-                _bus = RabbitHutch.CreateBus(ConnectionString);
+                TryConnect();
 
                 await _bus.SendReceive.SendAsync(nameof(StockResponse), content, cancellationToken);
+            }
+        }
+        private void TryConnect()
+        {
+            if (_bus == null || !_bus.Advanced.IsConnected)
+            {
+                _bus = RabbitHutch.CreateBus(_settings.ConnectionString);
             }
         }
     }

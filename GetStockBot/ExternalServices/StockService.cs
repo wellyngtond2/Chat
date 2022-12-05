@@ -8,10 +8,10 @@ namespace GetStockBot.ExternalServices
     public class StockService : IStockService
     {
         private readonly HttpClient _httpClient;
+        public const string STOCK_SERVICE_NAME = "Stock";
         public StockService(IHttpClientFactory clientFactory)
         {
-            _httpClient = clientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("https://stooq.com/q/l/");
+            _httpClient = clientFactory.CreateClient(STOCK_SERVICE_NAME);
         }
         public async Task<byte[]> GetStockByCodeAsync(string code)
         {

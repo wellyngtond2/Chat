@@ -1,11 +1,6 @@
-﻿using Chat.DataContracts.Settings;
+﻿using Chat.Share.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chat.Presentation.Extensions
 {
@@ -14,6 +9,9 @@ namespace Chat.Presentation.Extensions
         public static IServiceCollection RegisterSettings(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<AuthSettings>(configuration.GetSection("AuthSettings"));
+            services.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
+            services.Configure<BackgroundJobSettings>(configuration.GetSection("BackgroundJobSettings"));
+
 
             return services;
         }

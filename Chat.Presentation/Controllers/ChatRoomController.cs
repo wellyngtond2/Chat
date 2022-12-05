@@ -35,6 +35,17 @@ namespace Chat.Presentation.Controllers
             return Ok(response);
         }
 
+        [HttpPost("{chatId}/message")]
+        [HttpGet]
+        public async Task<IActionResult> SendMessage(int chatId)
+        {
+            var request = new GetChatMessagesRequest(chatId);
+
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
+        }
+
         [HttpPost("send-message")]
         [AllowAnonymous]
         public async Task<IActionResult> SendMessage(SendChatMessageRequest request)
