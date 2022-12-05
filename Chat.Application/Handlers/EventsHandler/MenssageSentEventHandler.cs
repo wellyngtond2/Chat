@@ -19,7 +19,7 @@ namespace Chat.Application.Handlers.EventsHandler
         {
             var request = new HubChatMessageDto(notification.UserId, notification.User, notification.ChatId, notification.Message);
 
-            await _hubContext.Clients.Group(notification.ChatId.ToString()).SendAsync("ReceiveMessage", request);
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", request);
         }
     }
 }

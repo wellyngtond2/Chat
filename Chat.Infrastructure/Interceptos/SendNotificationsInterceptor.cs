@@ -20,7 +20,7 @@ namespace Chat.Infrastructure.Interceptos
             {
                 var entries = eventData.Context.ChangeTracker
                               .Entries()
-                              .Where(e => e.Entity is BaseEntity && e.State != EntityState.Unchanged)
+                              .Where(e => e.Entity is BaseEntity)
                               .ToList();
 
                 foreach (var entityEntry in entries)

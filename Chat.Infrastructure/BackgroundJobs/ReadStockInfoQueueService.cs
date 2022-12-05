@@ -23,7 +23,7 @@ namespace Chat.Infrastructure.BackgroundJobs
             {
                 var chatMsg = new HubChatMessageDto(-1, "Bot", data.ChatId, data.StockInfo);
 
-                await _hubContext.Clients.Groups(data.ChatId.ToString()).SendAsync("ReceiveMessage", chatMsg);
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", chatMsg);
 
             }, context.CancellationToken);
 
