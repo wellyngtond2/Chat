@@ -55,6 +55,7 @@
 ## Final Considerations
 
 * This project is focused on backend, so the front here is just minimal to see the project working.
+* The tests does not have full test coverage, because is an example to create the others one.
 * The fronend was made in ReactJs, so you need open the frontend folder in a terminal and run the command 'npm' to dowlonad the packages dependences, then run 'npm start' to run application.
 * The frontend is waiting that backend run in localhost:5001, if was this different you must to update in all places on frontend.
 * As the frontend is a minimal you must register new users by API swagger interface.
