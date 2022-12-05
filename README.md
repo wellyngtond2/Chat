@@ -48,3 +48,5 @@
 - "QueueSettings: ConnectionString" is a RabbitMq connection string.
 - "BackgroundJobSettings: BotScheduleIntervalInSeconds": is how long time the application background service should waiting to schedule in seconds.
 
+3 - Run the database create script in the follow link:
+ https://github.com/wellyngtond2/Chat/tree/master/Scripts
