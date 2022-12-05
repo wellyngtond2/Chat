@@ -11,9 +11,9 @@ namespace Chat.Application.Handlers.Commands.ChatRoom
 {
     public class CreateChatRoomHandler : BaseCommandHandler<CreateChatRoomRequest, Unit>
     {
-        private readonly ApiContext _dbContext;
+        private readonly IApiContext _dbContext;
         private readonly IUserContext _userContext;
-        public CreateChatRoomHandler(IEnumerable<IValidator<CreateChatRoomRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext, IUserContext userContext) : base(validators, logger, mapper)
+        public CreateChatRoomHandler(IEnumerable<IValidator<CreateChatRoomRequest>> validators, ILogger logger, IMapper mapper, IApiContext dbContext, IUserContext userContext) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
             _userContext = userContext;
@@ -24,7 +24,7 @@ namespace Chat.Application.Handlers.Commands.ChatRoom
             var chatRoom = _mapper.Map<Domain.Entities.ChatRoom>(request);
             var creator = new Domain.Entities.Membership(_userContext.GetUserContext().userId);
             chatRoom.SetCreator(creator);
-            _dbContext.Add(chatRoom);
+            _dbContext.ChatRooms.Add(chatRoom);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

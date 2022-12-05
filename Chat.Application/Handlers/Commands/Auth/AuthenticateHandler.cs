@@ -24,11 +24,17 @@ namespace Chat.Application.Handlers.Commands.Auth
 
         protected override async Task<BaseResponse<TokenResponse>> Process(AuthenticateRequest request, CancellationToken cancellationToken)
         {
-            var password = SecurityHelper.StringToHash(request.Password);
 
-            var membership = await _dbContext.Memberships.FirstOrDefaultAsync(x => x.Email == request.Email && x.Password == password, cancellationToken);
+            var membership = await _dbContext.Memberships.FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
 
             if (membership is null)
+            {
+                return default;
+            }
+
+            var password = SecurityHelper.VerifyHash(membership.Password, request.Password);
+
+            if (!password)
             {
                 return default;
             }

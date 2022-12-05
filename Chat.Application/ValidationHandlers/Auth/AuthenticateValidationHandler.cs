@@ -8,9 +8,9 @@ namespace Chat.Application.ValidationHandlers.Auth
 {
     public class AuthenticateValidationHandler : AbstractValidator<AuthenticateRequest>
     {
-        private readonly ApiContext _dbContext;
+        private readonly IApiContext _dbContext;
 
-        public AuthenticateValidationHandler(ApiContext dbContext)
+        public AuthenticateValidationHandler(IApiContext dbContext)
         {
             _dbContext = dbContext;
 

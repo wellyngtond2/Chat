@@ -10,8 +10,8 @@ namespace Chat.Application.Handlers.Queries.ChatMessage
 {
     public class GetChatMessagesHandler : BaseCommandHandler<GetChatMessagesRequest, ICollection<ChatMessageResponse>>
     {
-        private readonly Infrastructure.Context.ApiContext _dbContext;
-        public GetChatMessagesHandler(IEnumerable<IValidator<GetChatMessagesRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.ApiContext dbContext) : base(validators, logger, mapper)
+        private readonly Infrastructure.Context.IApiContext _dbContext;
+        public GetChatMessagesHandler(IEnumerable<IValidator<GetChatMessagesRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.IApiContext dbContext) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
         }
@@ -20,7 +20,7 @@ namespace Chat.Application.Handlers.Queries.ChatMessage
         {
             var chatMessages = (from cm in _dbContext.ChatMessages
                                 join m in _dbContext.Memberships on cm.Creator.Id equals m.Id
-                                where cm.Id == request.ChatId
+                                where cm.ChatRoomId == request.ChatId
                                 orderby cm.CreatedAt
                                 select new ChatMessageResponse
                                 {

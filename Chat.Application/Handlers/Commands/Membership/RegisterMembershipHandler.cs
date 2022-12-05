@@ -11,8 +11,8 @@ namespace Chat.Application.Handlers.Commands.Membership
 {
     public class RegisterMembershipHandler : BaseCommandHandler<RegisterMembershipRequest, Unit>
     {
-        private readonly ApiContext _dbContext;
-        public RegisterMembershipHandler(IEnumerable<IValidator<RegisterMembershipRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext) : base(validators, logger, mapper)
+        private readonly IApiContext _dbContext;
+        public RegisterMembershipHandler(IEnumerable<IValidator<RegisterMembershipRequest>> validators, ILogger logger, IMapper mapper, IApiContext dbContext) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
         }
@@ -23,7 +23,7 @@ namespace Chat.Application.Handlers.Commands.Membership
 
             membership.SetPassword(SecurityHelper.StringToHash(request.Password));
 
-            _dbContext.Add(membership);
+            _dbContext.Memberships.Add(membership);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

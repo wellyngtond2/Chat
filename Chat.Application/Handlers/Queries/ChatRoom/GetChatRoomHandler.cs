@@ -16,8 +16,8 @@ namespace Chat.Application.Handlers.Queries.ChatRoom
 {
     public class GetChatRoomHandler : BaseCommandHandler<GetChatRoomRequest, ICollection<ChatRoomResponse>>
     {
-        private readonly Infrastructure.Context.ApiContext _dbContext;
-        public GetChatRoomHandler(IEnumerable<IValidator<GetChatRoomRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.ApiContext dbContext) : base(validators, logger, mapper)
+        private readonly Infrastructure.Context.IApiContext _dbContext;
+        public GetChatRoomHandler(IEnumerable<IValidator<GetChatRoomRequest>> validators, ILogger logger, IMapper mapper, Infrastructure.Context.IApiContext dbContext) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
         }

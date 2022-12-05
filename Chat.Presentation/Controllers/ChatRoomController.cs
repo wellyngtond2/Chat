@@ -27,6 +27,7 @@ namespace Chat.Presentation.Controllers
         }
 
         [HttpGet("all")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var request = new GetChatRoomRequest();
@@ -35,8 +36,7 @@ namespace Chat.Presentation.Controllers
             return Ok(response);
         }
 
-        [HttpPost("{chatId}/message")]
-        [HttpGet]
+        [HttpGet("{chatId}/message")]
         public async Task<IActionResult> SendMessage(int chatId)
         {
             var request = new GetChatMessagesRequest(chatId);
@@ -47,7 +47,6 @@ namespace Chat.Presentation.Controllers
         }
 
         [HttpPost("send-message")]
-        [AllowAnonymous]
         public async Task<IActionResult> SendMessage(SendChatMessageRequest request)
         {
             if (request is null) return BadRequest();

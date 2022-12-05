@@ -7,8 +7,8 @@ namespace Chat.Application.ValidationHandlers.Membership
 {
     public class RegisterMembershipValidationHandler : AbstractValidator<RegisterMembershipRequest>
     {
-        private readonly ApiContext _dbContext;
-        public RegisterMembershipValidationHandler(ApiContext dbContext)
+        private readonly IApiContext _dbContext;
+        public RegisterMembershipValidationHandler(IApiContext dbContext)
         {
             _dbContext = dbContext;
 

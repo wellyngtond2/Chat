@@ -7,8 +7,8 @@ namespace Chat.Application.ValidationHandlers.ChatMessage
 {
     public class SendChatMessageValidationHandler : AbstractValidator<SendChatMessageRequest>
     {
-        private readonly ApiContext _dbContext;
-        public SendChatMessageValidationHandler(ApiContext dbContext)
+        private readonly IApiContext _dbContext;
+        public SendChatMessageValidationHandler(IApiContext dbContext)
         {
             _dbContext = dbContext;
 
