@@ -59,9 +59,11 @@
 * The frontend is waiting that backend run in localhost:5001, if was this different you must to update in all places on frontend.
 * As the frontend is a minimal you must register new users by API swagger interface.
 * To use the application by frontend insert you registered email and password:
+
 ![image](https://user-images.githubusercontent.com/13359384/205638061-d0525d0c-d96c-4e94-b0ff-d1ee7cf0a808.png)
 
 * Then choose you room and send the messages:
+
 ![image](https://user-images.githubusercontent.com/13359384/205638109-4b1cf921-fbb1-4f21-ae94-583b633df00d.png)
 
 * To create new rooms you must be it by API swagger.
