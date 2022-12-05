@@ -5,6 +5,7 @@ using Chat.DataContracts.Auth.Request;
 using Chat.DataContracts.Auth.Response;
 using Chat.DataContracts.Base;
 using Chat.Infrastructure.Context;
+using Chat.Share.Helpers;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -13,9 +14,9 @@ namespace Chat.Application.Handlers.Commands.Auth
 {
     public class AuthenticateHandler : BaseCommandHandler<AuthenticateRequest, BaseResponse<TokenResponse>>
     {
-        private readonly ApiContext _dbContext;
+        private readonly IApiContext _dbContext;
         private readonly ITokenService _tokenService;
-        public AuthenticateHandler(IEnumerable<IValidator<AuthenticateRequest>> validators, ILogger logger, IMapper mapper, ApiContext dbContext, ITokenService tokenService) : base(validators, logger, mapper)
+        public AuthenticateHandler(IEnumerable<IValidator<AuthenticateRequest>> validators, ILogger logger, IMapper mapper, IApiContext dbContext, ITokenService tokenService) : base(validators, logger, mapper)
         {
             _dbContext = dbContext;
             _tokenService = tokenService;
@@ -23,7 +24,7 @@ namespace Chat.Application.Handlers.Commands.Auth
 
         protected override async Task<BaseResponse<TokenResponse>> Process(AuthenticateRequest request, CancellationToken cancellationToken)
         {
-            var password = request.Password;
+            var password = SecurityHelper.StringToHash(request.Password);
 
             var membership = await _dbContext.Memberships.FirstOrDefaultAsync(x => x.Email == request.Email && x.Password == password, cancellationToken);
 

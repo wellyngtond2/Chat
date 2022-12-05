@@ -20,6 +20,8 @@ namespace Chat.Presentation.Extensions
                 .AddInterceptors(sendNotificationsInterceptor);
             });
 
+            services.AddScoped<IApiContext>(provider => provider.GetService<ApiContext>());
+
             return services;
         }
     }

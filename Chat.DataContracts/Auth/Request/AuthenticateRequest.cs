@@ -6,7 +6,13 @@ namespace Chat.DataContracts.Auth.Request
 {
     public sealed class AuthenticateRequest : IRequest<BaseResponse<TokenResponse>>
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public AuthenticateRequest(string email, string password)
+        {
+            Email = email;
+            Password = password;
+        }
+
+        public string Email { get; }
+        public string Password { get;  }
     }
 }

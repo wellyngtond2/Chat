@@ -23,11 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.DataContracts", "Chat.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Presentation", "Chat.Presentation\Chat.Presentation.csproj", "{87B18D99-E0EC-4BD9-A481-55D109042100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Share", "Chat.Share\Chat.Share.csproj", "{FD1ADFF4-0180-45E9-A64A-F122CD87A85A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Share", "Chat.Share\Chat.Share.csproj", "{FD1ADFF4-0180-45E9-A64A-F122CD87A85A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StockBot", "StockBot", "{C9532363-B32C-4683-9CEE-59DD7187D290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetStockBot", "GetStockBot\GetStockBot.csproj", "{54706FB3-0ECA-464C-8C20-21F4DFB16E6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetStockBot", "GetStockBot\GetStockBot.csproj", "{54706FB3-0ECA-464C-8C20-21F4DFB16E6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{AA9C4EB7-049B-4428-9FF1-ADA11EA0A619}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Test", "Chat.Test\Chat.Test.csproj", "{A7E9D88F-6F73-4FD9-A1A6-0F91D8557F5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,10 @@ Global
 		{54706FB3-0ECA-464C-8C20-21F4DFB16E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54706FB3-0ECA-464C-8C20-21F4DFB16E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54706FB3-0ECA-464C-8C20-21F4DFB16E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E9D88F-6F73-4FD9-A1A6-0F91D8557F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E9D88F-6F73-4FD9-A1A6-0F91D8557F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E9D88F-6F73-4FD9-A1A6-0F91D8557F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E9D88F-6F73-4FD9-A1A6-0F91D8557F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,7 @@ Global
 		{87B18D99-E0EC-4BD9-A481-55D109042100} = {DE73C6D2-18AD-4225-8753-4FFEDC37F640}
 		{FD1ADFF4-0180-45E9-A64A-F122CD87A85A} = {A292610C-6D72-4324-A833-7D4747AF85E5}
 		{54706FB3-0ECA-464C-8C20-21F4DFB16E6C} = {C9532363-B32C-4683-9CEE-59DD7187D290}
+		{A7E9D88F-6F73-4FD9-A1A6-0F91D8557F5C} = {AA9C4EB7-049B-4428-9FF1-ADA11EA0A619}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E0E4599-043A-4DA3-A8FE-319C3F07BBBD}

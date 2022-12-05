@@ -1,10 +1,11 @@
-﻿using Chat.Share.Entities;
+﻿using Chat.Domain.Exceptions;
+using Chat.Share.Entities;
 
 namespace Chat.Domain.Entities
 {
     public class Membership : BaseEntity
     {
-        protected Membership()
+        public Membership()
         {
 
         }
@@ -24,5 +25,12 @@ namespace Chat.Domain.Entities
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public void SetPassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                throw new PasswordNullException("Membership password is null");
+
+            Password = password;
+        }
     }
 }

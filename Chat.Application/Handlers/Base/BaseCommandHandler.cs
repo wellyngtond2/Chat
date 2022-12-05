@@ -63,8 +63,7 @@ namespace Chat.Application.Handlers.Base
                 {
                     _logger.Error($"Command handler error. {request.GetType().Name} ", ex);
                 }
-
-                throw new HandlerException(ex);
+                throw;
             }
         }
 

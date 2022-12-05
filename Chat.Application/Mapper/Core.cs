@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Chat.DataContracts.ChatMessage.Request;
-using Chat.DataContracts.ChatMessage.Response;
 using Chat.DataContracts.ChatRoom.Request;
 using Chat.DataContracts.ChatRoom.Response;
 using Chat.DataContracts.Membership.Request;
 using Chat.DataContracts.Membership.Response;
-using Chat.Domain.Dtos;
 using Chat.Domain.Entities;
 
 namespace Chat.Application.Mapper

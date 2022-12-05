@@ -2,6 +2,7 @@
 using Chat.Application.Handlers.Base;
 using Chat.DataContracts.Membership.Request;
 using Chat.Infrastructure.Context;
+using Chat.Share.Helpers;
 using FluentValidation;
 using MediatR;
 using Serilog;
@@ -19,6 +20,8 @@ namespace Chat.Application.Handlers.Commands.Membership
         protected override async Task<Unit> Process(RegisterMembershipRequest request, CancellationToken cancellationToken)
         {
             var membership = _mapper.Map<Domain.Entities.Membership>(request);
+
+            membership.SetPassword(SecurityHelper.StringToHash(request.Password));
 
             _dbContext.Add(membership);
 
